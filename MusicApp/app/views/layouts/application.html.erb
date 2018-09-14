@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'main'%>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <img id='logo' src="https://images.bewakoof.com/original/black-panther-minimal-half-sleeve-t-shirt-men-s-printed-t-shirts-178697-1518846143.jpg" alt="logo">
+      <p>MUSIC APP</p>
+    </header>
+
+    <!-- CHECK IF LOGGED IN -->
+    <section class="options">
+
+      <% if logged_in? %>
+        <h1> Welcome, <%= current_user.fname %></h1>
+
+        <form class="" action="<%=session_url%>" method="post">
+          <%= auth_token %>
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" name="submit" value="Log Out!">
+        </form>
+
+      <% else %>
+        <h1> Welcome to the Music App! </h1>
+        <a href="<%=new_user_url %>">Sign UP!</a>
+        <a href="<%=new_session_url %>">Sign IN!</a>
+      <% end %>
+
+    </section>
+
+    <!-- SHOW ERRORS -->
+    <% if flash[:errors] %>
+      <%= render '/shared/errors', errors: flash[:errors] %>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>

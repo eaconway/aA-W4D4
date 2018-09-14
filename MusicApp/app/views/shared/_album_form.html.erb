@@ -1,0 +1,50 @@
+<% if type == :new %>
+  <% button_msg = "Create me!" %>
+  <% action_url = albums_url %>
+<% elsif type == :edit %>
+  <% button_msg = "Edit me!" %>
+  <% action_url = album_url(album) %>
+<% end %>
+
+
+<a href="<%=band_url(@album.band_id) %>">
+  Go back to band</a>
+<br>
+
+<form action="<%=action_url%>" method="post">
+  <%= auth_token %>
+  <% if type == :edit %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <br>
+
+  <!-- <input type="hidden" name="album[band_id]" value="<%#=band_id%>"> -->
+  <select name="album[band_id]">
+    <% Band.all.each do |band| %>
+     <option
+       <%= band.id == band_id ? "selected" : "" %>
+       value="<%= band.id %>">
+       <%= band.name %>
+     </option>
+   <% end %>
+  </select>
+
+
+  <label for="title">Title:</label>
+  <input id='title' type="text" name="album[title]" value="<%= album.title %>">
+  <br>
+
+  <label for="year">Year:</label>
+  <input id='year' type="text" name="album[year]" value="<%= album.year %>">
+  <br>
+
+  <% album.album_types.each do |album_type| %>
+    <label for="album_type"> <%= album_type %></label>
+    <input id="album_type" type="radio" name="album[album_type]"
+      <%= 'checked' if album.album_type == album_type %>
+      value="<%= album_type %>">
+  <% end %>
+  <br>
+
+  <input type="submit" name="submit" value=" <%= button_msg %>">
+</form>

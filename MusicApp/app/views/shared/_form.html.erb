@@ -1,0 +1,28 @@
+<% if type == :signup  %>
+  <% button_msg = "Sign me up!" %>
+  <% action_url = users_url %>
+
+<% elsif type == :signin  %>
+  <% button_msg = "Sign In!" %>
+  <% action_url = session_url %>
+<% end %>
+
+
+<form class="" action="<%= action_url %> " method="post">
+  <%= auth_token %>
+  <% if type == :signup %>
+    <label for="fname">First Name!:</label>
+    <input id='fname' type="text" name="user[fname]" value="<%= user.fname %>">
+  <% end %>
+  <br>
+
+  <label for="email">Email:</label>
+  <input id='email' type="email" name="user[email]" value="<%= user.fname %>">
+  <br>
+
+  <label for="password">Password:</label>
+  <input id='password' type="password" name="user[password]">
+  <br><br>
+
+  <input type="submit" name="submit" value="<%= button_msg %> ">
+</form>

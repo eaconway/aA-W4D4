@@ -1,0 +1,5 @@
+<h2> <%= @track.title %></h2>
+
+<h3>Album: <%= Album.find(@track.album_id)%></h3>
+
+<h3>Artist: <%= Band.find(Album.find(@track.album_id).id) %> </h3>

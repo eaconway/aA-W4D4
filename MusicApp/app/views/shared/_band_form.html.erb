@@ -1,0 +1,21 @@
+<% if type == :new_band %>
+  <% button_msg = "Create me!" %>
+  <% action_url = bands_url %>
+<% elsif type == :edit_band %>
+  <% button_msg = "Update me!"%>
+  <% action_url = band_url(band) %>
+<% end %>
+
+<form class="" action=" <%= action_url %>" method="post">
+  <%= auth_token %>
+
+  <% if type == :edit_band %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+
+  <label for="name">Band Name:</label>
+  <input id='name' type="text" name="band[name]" value="<%= band.name %>">
+  <br>
+
+  <input type="submit" name="submit" value=" <%= button_msg %>">
+</form>

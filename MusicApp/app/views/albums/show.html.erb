@@ -1,0 +1,13 @@
+<h1> <%= @album.title %></h1>
+
+<h3>Tracks</h3>
+
+<% @album.tracks.each do |track| %>
+  <li> <%= track.title %></li>
+<% end %>
+
+<a href=" <%=new_album_track_url(@album)  %>">Add track</a>
+<br>
+
+<a href=" <%= edit_album_url(@album) %>">Edit Album</a>
+<%= delete_album(@album) %>
